@@ -69,9 +69,10 @@ $(document).ready(function() {
         else {
           //hide two nonmatched cards only
           var nonMatchPair = $(".card").find(".contents").not(".match");
-          nonMatchPair.removeClass("selected").hide(1000);
-          //remove text from DOM
-          //nonMatchPair.html("");
+          nonMatchPair.removeClass("selected").hide(1000, function() {
+            //remove text from dom
+            $(this).html("");
+          });
         }
       }
     }
