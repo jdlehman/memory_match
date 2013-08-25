@@ -51,20 +51,24 @@ $(document).ready(function() {
     var prevCard;
     var currCard = deck.getCard(currCardElem.attr("id"));
 
-    console.log(currCardElem.attr("id"));
-
     currCardElem.html(currCard.type).show(200).addClass("selected");
 
+    /*CHECK MATCH*/
+
+    //check that previous card was selected
     if(prevCardElem.length) {
       prevCard = deck.getCard(prevCardElem.attr("id"));
-      if(prevCard.type == currCard.type) {
-        $(".card").find(".contents").removeClass("selected");
-        prevCardElem.addClass("match");
-        currCardElem.addClass("match");
-      }
-      else {
-        //hide two nonmatched cards only
-        $(".card").find(".contents").not(".match").removeClass("selected").hide(1000);
+      //check that second card is a different card
+      if(prevCard.id != currCard.id) {
+        if(prevCard.type == currCard.type) {
+          $(".card").find(".contents").removeClass("selected");
+          prevCardElem.addClass("match");
+          currCardElem.addClass("match");
+        }
+        else {
+          //hide two nonmatched cards only
+          $(".card").find(".contents").not(".match").removeClass("selected").hide(1000);
+        }
       }
     }
   });
