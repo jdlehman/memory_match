@@ -67,7 +67,9 @@ $(document).ready(function() {
         }
         else {
           //hide two nonmatched cards only
-          $(".card").find(".contents").not(".match").removeClass("selected").hide(1000);
+          var nonMatchPair = $(".card").find(".contents").not(".match").removeClass("selected").hide(1000);
+          //remove text from DOM
+          nonMatchPair.html("");
         }
       }
     }
