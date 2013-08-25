@@ -46,20 +46,21 @@ $(document).ready(function() {
 
   //click card event
   $(".card").click(function() {
-    var prevCardElem = $(".card").find(".selected");
-    var currCardElem = $(this).find("span");
-    var prevCard;
-    var currCard = deck.getCard(currCardElem.attr("id"));
+    //ignore previously selected or previously matched card
+    if($(this).find(".match").length == 0 && $(this).find(".selected").length == 0) {
+      var prevCardElem = $(".card").find(".selected");
+      var currCardElem = $(this).find("span");
+      var prevCard;
+      var currCard = deck.getCard(currCardElem.attr("id"));
 
-    currCardElem.html(currCard.type).show(200).addClass("selected");
+      currCardElem.html(currCard.type).show(200).addClass("selected");
 
-    /*CHECK MATCH*/
+      /*CHECK MATCH*/
 
-    //check that previous card was selected
-    if(prevCardElem.length) {
-      prevCard = deck.getCard(prevCardElem.attr("id"));
-      //check that second card is a different card
-      if(prevCard.id != currCard.id) {
+      //check that previous card was selected
+      if(prevCardElem.length) {
+        prevCard = deck.getCard(prevCardElem.attr("id"));
+
         if(prevCard.type == currCard.type) {
           $(".card").find(".contents").removeClass("selected");
           prevCardElem.addClass("match");
@@ -67,9 +68,10 @@ $(document).ready(function() {
         }
         else {
           //hide two nonmatched cards only
-          var nonMatchPair = $(".card").find(".contents").not(".match").removeClass("selected").hide(1000);
+          var nonMatchPair = $(".card").find(".contents").not(".match");
+          nonMatchPair.removeClass("selected").hide(1000);
           //remove text from DOM
-          nonMatchPair.html("");
+          //nonMatchPair.html("");
         }
       }
     }
